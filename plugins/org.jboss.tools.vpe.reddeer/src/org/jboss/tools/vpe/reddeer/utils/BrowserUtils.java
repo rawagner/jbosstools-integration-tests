@@ -10,8 +10,8 @@
  ******************************************************************************/
 package org.jboss.tools.vpe.reddeer.utils;
 
-import org.jboss.reddeer.core.util.Display;
-import org.jboss.reddeer.core.util.ResultRunnable;
+import org.jboss.reddeer.common.util.Display;
+import org.jboss.reddeer.common.util.ResultRunnable;
 import org.jboss.reddeer.swt.api.Browser;
 /**
  * Utils to handle RedDeer browser

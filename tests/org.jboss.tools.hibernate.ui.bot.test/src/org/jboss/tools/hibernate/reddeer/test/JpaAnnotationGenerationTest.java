@@ -20,9 +20,9 @@ import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.jboss.reddeer.eclipse.jdt.ui.ProjectExplorer;
-import org.jboss.reddeer.eclipse.ui.problems.ProblemsView;
-import org.jboss.reddeer.eclipse.ui.problems.ProblemsView.ProblemType;
+import org.jboss.reddeer.eclipse.ui.navigator.resources.ProjectExplorer;
+import org.jboss.reddeer.eclipse.ui.views.markers.ProblemsView;
+import org.jboss.reddeer.eclipse.ui.views.markers.ProblemsView.ProblemType;
 import org.jboss.reddeer.junit.internal.runner.ParameterizedRequirementsRunnerFactory;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.requirements.db.DatabaseRequirement.Database;

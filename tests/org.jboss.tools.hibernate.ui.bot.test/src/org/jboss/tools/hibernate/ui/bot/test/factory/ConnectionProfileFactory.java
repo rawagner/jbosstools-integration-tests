@@ -12,12 +12,12 @@ package org.jboss.tools.hibernate.ui.bot.test.factory;
 
 import java.util.List;
 
+import org.jboss.reddeer.eclipse.datatools.connectivity.ui.dse.views.DataSourceExplorerView;
+import org.jboss.reddeer.eclipse.datatools.connectivity.ui.wizards.NewCPWizard;
 import org.jboss.reddeer.eclipse.datatools.ui.DatabaseProfile;
-import org.jboss.reddeer.eclipse.datatools.ui.view.DataSourceExplorer;
-import org.jboss.reddeer.eclipse.datatools.ui.wizard.ConnectionProfileWizard;
 import org.jboss.reddeer.requirements.db.DatabaseConfiguration;
 import org.jboss.reddeer.swt.api.TreeItem;
-import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
+import org.jboss.reddeer.swt.condition.ShellIsAvailable;
 import org.jboss.reddeer.swt.impl.button.YesButton;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
@@ -40,20 +40,20 @@ public class ConnectionProfileFactory {
 	 */
 	public static void createConnectionProfile(DatabaseConfiguration cfg) {
 		
-		DataSourceExplorer dse = new DataSourceExplorer();
+		DataSourceExplorerView dse = new DataSourceExplorerView();
 		dse.open();
 		
 		//TODO implement this in explorer
 		//TODO fix explorer name
 		DefaultTreeItem item = new DefaultTreeItem("Database Connections");
-		item.expand(TimePeriod.NORMAL);
+		item.expand(TimePeriod.DEFAULT);
 		List<TreeItem> items = item.getItems();
 		for (TreeItem i : items) {
 			i.select();
 			new ContextMenu("Delete").select();
 			new DefaultShell("Delete confirmation");
 			new YesButton().click();
-			new WaitWhile(new ShellWithTextIsAvailable("Delete confirmation"));				
+			new WaitWhile(new ShellIsAvailable("Delete confirmation"));				
 		}
 
 		DatabaseProfile dbProfile = new DatabaseProfile();
@@ -66,7 +66,7 @@ public class ConnectionProfileFactory {
 		dbProfile.setVendor(cfg.getDriverVendor());
 
 		// Driver Definition creation
-		ConnectionProfileWizard cpw = new ConnectionProfileWizard();
+		NewCPWizard cpw = new NewCPWizard();
 		cpw.open();
 		cpw.createDatabaseProfile(dbProfile);
 	}
@@ -77,20 +77,20 @@ public class ConnectionProfileFactory {
 	 */
 	@SuppressWarnings("unchecked")
 	public static void deleteConnectionProfile(String profileName) {
-		DataSourceExplorer explorer = new DataSourceExplorer();
+		DataSourceExplorerView explorer = new DataSourceExplorerView();
 		explorer.open();
 		new DefaultTreeItem(new TreeItemRegexMatcher("Database Connections"), new TreeItemRegexMatcher(profileName + ".*")).select();
 		new ContextMenu("Delete").select();
 		new DefaultShell("Delete confirmation");
 		new YesButton().click();
-		new WaitWhile(new ShellWithTextIsAvailable("Delete confirmation"));
+		new WaitWhile(new ShellIsAvailable("Delete confirmation"));
 	}
 	
 	/***
 	 * Method deletes all connection profiles via Data Source Explorer
 	 */
 	public static void deleteAllConnectionProfiles() {
-		DataSourceExplorer dse = new DataSourceExplorer();
+		DataSourceExplorerView dse = new DataSourceExplorerView();
 		dse.open();
 		List<TreeItem> items = new DefaultTreeItem("Database Connections").getItems();
 		for (TreeItem i : items) {
@@ -98,7 +98,7 @@ public class ConnectionProfileFactory {
 			new ContextMenu("Delete").select();;
 			new DefaultShell("Delete confirmation");
 			new YesButton().click();
-			new WaitWhile(new ShellWithTextIsAvailable("Delete confirmation"));		
+			new WaitWhile(new ShellIsAvailable("Delete confirmation"));		
 		}
 	}	
 }

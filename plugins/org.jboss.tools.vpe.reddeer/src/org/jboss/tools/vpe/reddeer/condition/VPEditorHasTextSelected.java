@@ -45,9 +45,17 @@ public class VPEditorHasTextSelected implements WaitCondition{
 	}
 
 	@Override
-	public String errorMessage() {
+	public String errorMessageUntil() {
 		if(text != null){
 			return "'"+editor.getSelectedTextInBrowser()+"' was selected but '"+text+"' was expected";
+		}
+		return "No text was selected in VPE editor";
+	}
+	
+	@Override
+	public String errorMessageWhile() {
+		if(text != null){
+			return "'"+editor.getSelectedTextInBrowser()+"' text is still selected";
 		}
 		return "No text was selected in VPE editor";
 	}

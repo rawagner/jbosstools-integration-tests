@@ -17,8 +17,8 @@ import java.util.Collection;
 
 import org.jboss.reddeer.common.exception.RedDeerException;
 import org.jboss.reddeer.common.wait.WaitUntil;
-import org.jboss.reddeer.eclipse.jdt.ui.ProjectExplorer;
-import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
+import org.jboss.reddeer.eclipse.jdt.ui.packageview.PackageExplorerPart;
+import org.jboss.reddeer.eclipse.ui.navigator.resources.ProjectExplorer;
 import org.jboss.reddeer.junit.internal.runner.ParameterizedRequirementsRunnerFactory;
 import org.jboss.reddeer.junit.requirement.inject.InjectRequirement;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
@@ -108,7 +108,7 @@ public class CodeGenerationKeyWordsTest extends HibernateRedDeerTest {
 	}
 
 	private void checkGeneratedEntities(String src) {
-		PackageExplorer pe = new PackageExplorer();
+		PackageExplorerPart pe = new PackageExplorerPart();
 		pe.open();
 		try {
 			new WaitUntil(new EntityIsGenerated(prj, src, "org.gen", "Actor.java"));

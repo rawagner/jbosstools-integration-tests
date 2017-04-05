@@ -16,10 +16,10 @@ import java.util.List;
 
 import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.condition.JobIsRunning;
 import org.jboss.reddeer.eclipse.ui.problems.Problem;
-import org.jboss.reddeer.eclipse.ui.problems.ProblemsView;
-import org.jboss.reddeer.eclipse.ui.problems.ProblemsView.ProblemType;
+import org.jboss.reddeer.eclipse.ui.views.markers.ProblemsView;
+import org.jboss.reddeer.eclipse.ui.views.markers.ProblemsView.ProblemType;
+import org.jboss.reddeer.workbench.core.condition.JobIsRunning;
 import org.jboss.tools.hibernate.reddeer.wizard.JpaFacetInstallPage;
 import org.jboss.tools.hibernate.reddeer.wizard.JPAProjectWizard;
 import org.jboss.tools.hibernate.reddeer.wizard.JPAProjectWizardFirstPage;

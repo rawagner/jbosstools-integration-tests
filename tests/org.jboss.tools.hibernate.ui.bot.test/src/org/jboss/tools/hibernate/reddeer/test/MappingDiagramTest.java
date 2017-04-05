@@ -16,8 +16,7 @@ import java.util.Collection;
 
 import org.jboss.reddeer.common.exception.RedDeerException;
 import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.condition.JobIsRunning;
-import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
+import org.jboss.reddeer.eclipse.jdt.ui.packageview.PackageExplorerPart;
 import org.jboss.reddeer.junit.internal.runner.ParameterizedRequirementsRunnerFactory;
 import org.jboss.reddeer.junit.requirement.inject.InjectRequirement;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
@@ -28,6 +27,7 @@ import org.jboss.reddeer.requirements.db.DatabaseRequirement;
 import org.jboss.reddeer.requirements.db.DatabaseRequirement.Database;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
+import org.jboss.reddeer.workbench.core.condition.JobIsRunning;
 import org.jboss.reddeer.workbench.impl.editor.DefaultEditor;
 import org.jboss.tools.hibernate.reddeer.console.EditConfigurationMainPage;
 import org.jboss.tools.hibernate.reddeer.console.EditConfigurationShell;
@@ -135,7 +135,7 @@ public class MappingDiagramTest extends HibernateRedDeerTest {
 			new DefaultEditor(prj+": Actor and 15 others");
 		} catch (RedDeerException e) { //workaroud due to buggy auto building
 			abr.fulfill();
-			PackageExplorer pe = new PackageExplorer();
+			PackageExplorerPart pe = new PackageExplorerPart();
 			pe.getProject(prj).select();
 			new ShellMenu("Project","Build Project").select();
 			new WaitWhile(new JobIsRunning());

@@ -18,8 +18,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import org.jboss.reddeer.eclipse.jdt.ui.ProjectExplorer;
-import org.jboss.reddeer.eclipse.ui.dialogs.ExplorerItemPropertyDialog;
+import org.jboss.reddeer.eclipse.ui.dialogs.PropertyDialog;
+import org.jboss.reddeer.eclipse.ui.navigator.resources.ProjectExplorer;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.requirements.db.DatabaseRequirement.Database;
 import org.jboss.reddeer.swt.impl.combo.DefaultCombo;
@@ -98,7 +98,7 @@ public class MappingFileTest extends HibernateRedDeerTest {
 		pe.open();
 		
 		assertTrue("Hbm.xml not generated: Known issue(s): JBIDE-18769, JBIDE-20042",
-				pe.getProject(PRJ).containsItem("Java Resources","src/main/java",PCKG,"Dog.hbm.xml"));
+				pe.getProject(PRJ).containsResource("Java Resources","src/main/java",PCKG,"Dog.hbm.xml"));
 		
 		pe.getProject(PRJ).getProjectItem("Java Resources","src/main/java",PCKG,"Dog.hbm.xml").open();
 		Hibernate3CompoundEditor hme = new Hibernate3CompoundEditor("Dog.hbm.xml");
@@ -143,7 +143,7 @@ public class MappingFileTest extends HibernateRedDeerTest {
 		pe.open();
 		
 		assertTrue("Hbm.xml not generated: Known issue(s): JBIDE-18769, JBIDE-20042",
-				pe.getProject(PRJ).containsItem("Java Resources","src/main/java",PCKG_CLZ,"Owner.hbm.xml"));
+				pe.getProject(PRJ).containsResource("Java Resources","src/main/java",PCKG_CLZ,"Owner.hbm.xml"));
 
 		pe.getProject(PRJ).getProjectItem("Java Resources","src/main/java",PCKG_CLZ,"Owner.hbm.xml").open();
 		
@@ -162,7 +162,7 @@ public class MappingFileTest extends HibernateRedDeerTest {
 	public void createMappingFilePackageWithNoConfig(){
 		ProjectExplorer pe = new ProjectExplorer();
 		pe.open();
-		ExplorerItemPropertyDialog pd = new ExplorerItemPropertyDialog(pe.getProject(PRJ));
+		PropertyDialog pd = pe.getProject(PRJ).openProperties();
 		pd.open();
 		new DefaultTreeItem("Hibernate Settings").select();
 		new DefaultCombo().setSelection("<None>");
@@ -175,7 +175,7 @@ public class MappingFileTest extends HibernateRedDeerTest {
 	public void createMappingFileWithNoConfig(){
 		ProjectExplorer pe = new ProjectExplorer();
 		pe.open();
-		ExplorerItemPropertyDialog pd = new ExplorerItemPropertyDialog(pe.getProject(PRJ));
+		PropertyDialog pd = pe.getProject(PRJ).openProperties();
 		pd.open();
 		new DefaultTreeItem("Hibernate Settings").select();
 		new DefaultCombo().setSelection("<None>");

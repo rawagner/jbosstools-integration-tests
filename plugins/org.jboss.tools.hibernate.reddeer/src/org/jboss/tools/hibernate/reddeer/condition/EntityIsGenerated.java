@@ -11,24 +11,24 @@
 package org.jboss.tools.hibernate.reddeer.condition;
 
 import org.jboss.reddeer.common.condition.WaitCondition;
-import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
+import org.jboss.reddeer.eclipse.jdt.ui.packageview.PackageExplorerPart;
 
 public class EntityIsGenerated implements WaitCondition{
 	
 	private String project;
-	private PackageExplorer pe;
+	private PackageExplorerPart pe;
 	private String[] entityPath;
 	
 	public EntityIsGenerated(String project, String... entityPath) {
 		this.entityPath = entityPath;
 		this.project = project;
-		pe = new PackageExplorer();
+		pe = new PackageExplorerPart();
 		pe.open();
 	}
 
 	@Override
 	public boolean test() {
-		if(pe.getProject(project).containsItem(entityPath)){
+		if(pe.getProject(project).containsResource(entityPath)){
 			return true;
 		} else {
 			pe.getProject(project).refresh();
@@ -42,8 +42,13 @@ public class EntityIsGenerated implements WaitCondition{
 	}
 
 	@Override
-	public String errorMessage() {
+	public String errorMessageUntil() {
 		return "entity "+entityPath[entityPath.length-1]+" was not generated";
+	}
+	
+	@Override
+	public String errorMessageWhile() {
+		return "entity "+entityPath[entityPath.length-1]+" is generated";
 	}
 	
 	

@@ -11,8 +11,8 @@
 package org.jboss.tools.livereload.reddeer.condition;
 
 import org.jboss.reddeer.common.condition.AbstractWaitCondition;
-import org.jboss.reddeer.core.handler.WidgetHandler;
-import org.jboss.reddeer.core.util.Display;
+import org.jboss.reddeer.common.util.Display;
+import org.jboss.reddeer.core.handler.ControlHandler;
 import org.jboss.reddeer.swt.impl.browser.InternalBrowser;
 
 public class BrowserContainsText extends AbstractWaitCondition{
@@ -27,7 +27,7 @@ public class BrowserContainsText extends AbstractWaitCondition{
 
 	@Override
 	public boolean test() {
-		WidgetHandler.getInstance().setFocus(ib.getSWTWidget());
+		ControlHandler.getInstance().setFocus(ib.getSWTWidget());
 		
 		Display.syncExec(new Runnable() {
 			
@@ -49,8 +49,13 @@ public class BrowserContainsText extends AbstractWaitCondition{
 	 * @see org.jboss.reddeer.common.condition.WaitCondition#errorMessage()
 	 */
 	@Override
-	public String errorMessage() {
+	public String errorMessageUntil() {
 		return "Expected text '"+text+"' but was '"+ib.getText()+"'";
+	}
+	
+	@Override
+	public String errorMessageWhile() {
+		return "Browser still contains text '"+ib.getText()+"'";
 	}
 
 }

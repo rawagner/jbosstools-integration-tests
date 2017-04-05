@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jboss.reddeer.eclipse.jdt.ui.ProjectExplorer;
+import org.jboss.reddeer.eclipse.ui.navigator.resources.ProjectExplorer;
 import org.jboss.reddeer.eclipse.ui.views.log.LogMessage;
 import org.jboss.reddeer.eclipse.ui.views.log.LogView;
 import org.jboss.tools.jst.reddeer.web.ui.NewXHTMLFileWizardPage;

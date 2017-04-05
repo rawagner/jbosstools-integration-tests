@@ -12,7 +12,7 @@ package org.jboss.tools.hibernate.reddeer.test;
 
 import static org.junit.Assert.assertTrue;
 
-import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
+import org.jboss.reddeer.eclipse.jdt.ui.packageview.PackageExplorerPart;
 import org.jboss.reddeer.junit.requirement.inject.InjectRequirement;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.requirements.db.DatabaseConfiguration;
@@ -65,7 +65,7 @@ public class AntFileExportTest extends HibernateRedDeerTest {
     	launchDialog.apply();
     	launchDialog.close();
     	    	
-    	PackageExplorer pe = new PackageExplorer();    
+    	PackageExplorerPart pe = new PackageExplorerPart();    
     	pe.open();
     	pe.selectProjects(PRJ);
     	

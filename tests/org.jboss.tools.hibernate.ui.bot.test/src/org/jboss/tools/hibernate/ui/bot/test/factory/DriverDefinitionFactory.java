@@ -12,11 +12,10 @@ package org.jboss.tools.hibernate.ui.bot.test.factory;
 
 import java.util.List;
 
+import org.jboss.reddeer.eclipse.datatools.connectivity.ui.dialogs.DriverDialog;
+import org.jboss.reddeer.eclipse.datatools.connectivity.ui.preferences.DriverPreferences;
 import org.jboss.reddeer.eclipse.datatools.ui.DriverDefinition;
 import org.jboss.reddeer.eclipse.datatools.ui.DriverTemplate;
-import org.jboss.reddeer.eclipse.datatools.ui.preference.DriverDefinitionPreferencePage;
-import org.jboss.reddeer.eclipse.datatools.ui.wizard.DriverDefinitionPage;
-import org.jboss.reddeer.eclipse.datatools.ui.wizard.DriverDefinitionWizard;
 import org.jboss.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
 import org.jboss.reddeer.requirements.db.DatabaseConfiguration;
 import org.jboss.reddeer.swt.api.Shell;
@@ -49,7 +48,7 @@ public class DriverDefinitionFactory {
 		// Driver Definition creation
 		WorkbenchPreferenceDialog preferenceDialog = new WorkbenchPreferenceDialog();
 		preferenceDialog.open();
-		DriverDefinitionPreferencePage preferencePage = new DriverDefinitionPreferencePage();
+		DriverPreferences preferencePage = new DriverPreferences();
 		preferenceDialog.select(preferencePage);
 		
 		
@@ -66,14 +65,13 @@ public class DriverDefinitionFactory {
 		}
 		
 		
-		DriverDefinitionWizard ddw = preferencePage.addDriverDefinition();
-		DriverDefinitionPage page = new DriverDefinitionPage();
-		page.selectDriverTemplate(dt.getType(),dt.getVersion());
-		page.setName(cfg.getDriverName());
-		page.addDriverLibrary(dd.getDriverLibrary());
-		page.setDriverClass(cfg.getDriverClass());
+		DriverDialog ddw = preferencePage.addDriverDefinition();
+		ddw.selectDriverTemplate(dt.getType(),dt.getVersion());
+		ddw.setName(cfg.getDriverName());
+		ddw.addDriverLibrary(dd.getDriverLibrary());
+		ddw.setDriverClass(cfg.getDriverClass());
 
-		ddw.finish();
+		ddw.ok();
 		preferenceDialog.ok();
 	}
 

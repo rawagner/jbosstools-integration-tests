@@ -15,7 +15,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
+import org.jboss.reddeer.eclipse.jdt.ui.packageview.PackageExplorerPart;
 import org.jboss.reddeer.junit.internal.runner.ParameterizedRequirementsRunnerFactory;
 import org.jboss.reddeer.junit.requirement.inject.InjectRequirement;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
@@ -145,7 +145,7 @@ public class ConsoleConfigurationFileTest extends HibernateRedDeerTest {
 	}
 	
 	private void checkFile(boolean generateConsole) {
-		PackageExplorer pe = new PackageExplorer();
+		PackageExplorerPart pe = new PackageExplorerPart();
 		pe.open();
 		pe.getProject(prjName).getProjectItem("src",HIBERNATE_CFG_FILE).open();
 		new DefaultEditor(HIBERNATE_CFG_FILE);

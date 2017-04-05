@@ -10,13 +10,13 @@
  ******************************************************************************/
 package org.jboss.tools.hibernate.reddeer.console;
 
-import org.jboss.reddeer.core.condition.JobIsRunning;
-import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
+import org.jboss.reddeer.swt.condition.ShellIsAvailable;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.ctab.DefaultCTabItem;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.tab.DefaultTabItem;
 import org.jboss.reddeer.swt.impl.text.LabeledText;
+import org.jboss.reddeer.workbench.core.condition.JobIsRunning;
 import org.jboss.reddeer.common.wait.WaitWhile;
 
 /**
@@ -75,7 +75,7 @@ public class EditConfigurationShell extends DefaultShell {
 	public void ok() {
 		String title = getText();
 		new PushButton("OK").click();
-		new WaitWhile(new ShellWithTextIsAvailable(title));
+		new WaitWhile(new ShellIsAvailable(title));
 		new WaitWhile(new JobIsRunning());		
 	}
 

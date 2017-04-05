@@ -13,7 +13,7 @@ package org.jboss.tools.hibernate.reddeer.test;
 import static org.junit.Assert.fail;
 
 import org.jboss.reddeer.common.exception.RedDeerException;
-import org.jboss.reddeer.eclipse.jdt.ui.ProjectExplorer;
+import org.jboss.reddeer.eclipse.ui.navigator.resources.ProjectExplorer;
 import org.jboss.reddeer.junit.requirement.inject.InjectRequirement;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.requirements.db.DatabaseConfiguration;

@@ -24,12 +24,6 @@ public class GenerateDdlWizard extends WizardDialog{
 	 * Initialzie DDL generation wizard
 	 */
 	public GenerateDdlWizard() {
-	}
-	
-	/**
-	 * Opens ddl generation wizard
-	 */
-	public void open() {
-		new ContextMenu("JPA Tools","Generate Tables from Entities...").select();
+		super("Generate Tables from Entities");
 	}
 }

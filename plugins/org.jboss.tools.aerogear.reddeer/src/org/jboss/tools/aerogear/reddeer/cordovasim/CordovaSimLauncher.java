@@ -95,7 +95,16 @@ public class CordovaSimLauncher extends SimLauncher{
 		}
 
 		@Override
-		public String errorMessage() {
+		public String errorMessageWhile() {
+			return getErrorMessage();
+		}
+		
+		@Override
+		public String errorMessageUntil() {
+			return getErrorMessage();
+		}
+		
+		private String getErrorMessage(){
 			ConsoleView cw = new ConsoleView();
 			cw.open();
 			String text = cw.getConsoleText();

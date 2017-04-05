@@ -12,7 +12,7 @@ package org.jboss.tools.hibernate.reddeer.test;
 
 import static org.junit.Assert.*;
 
-import org.jboss.reddeer.eclipse.jdt.ui.ProjectExplorer;
+import org.jboss.reddeer.eclipse.ui.navigator.resources.ProjectExplorer;
 import org.jboss.reddeer.junit.requirement.inject.InjectRequirement;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.requirements.db.DatabaseConfiguration;
@@ -75,7 +75,7 @@ public class JBossDatasourceTest extends HibernateRedDeerTest {
 		assertFalse(new DefaultEditor(dsFileName).isDirty());
 		ProjectExplorer pe = new ProjectExplorer();
 		pe.open();
-		assertTrue(pe.getProject(PRJ).containsItem("src","main","resources",dsFileName));
+		assertTrue(pe.getProject(PRJ).containsResource("src","main","resources",dsFileName));
 	
 	}
 		

@@ -15,9 +15,8 @@ import static org.junit.Assert.fail;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.condition.JobIsRunning;
 import org.jboss.reddeer.eclipse.m2e.core.ui.wizard.MavenImportWizard;
-import org.jboss.reddeer.eclipse.ui.views.properties.PropertiesView;
+import org.jboss.reddeer.eclipse.ui.views.properties.PropertySheet;
 import org.jboss.reddeer.junit.requirement.inject.InjectRequirement;
 import org.jboss.reddeer.requirements.autobuilding.AutoBuildingRequirement.AutoBuilding;
 import org.jboss.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement;
@@ -29,6 +28,7 @@ import org.jboss.reddeer.swt.condition.ShellIsAvailable;
 import org.jboss.reddeer.swt.impl.button.PushButton;
 import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
+import org.jboss.reddeer.workbench.core.condition.JobIsRunning;
 import org.jboss.reddeer.workbench.impl.shell.WorkbenchShell;
 import org.jboss.tools.hibernate.reddeer.console.views.KnownConfigurationsView;
 import org.jboss.tools.hibernate.ui.bot.test.Activator;
@@ -63,7 +63,7 @@ public class HibernateRedDeerTest {
 		}
 		
 		//https://bugs.eclipse.org/bugs/show_bug.cgi?id=470094
-		PropertiesView pw = new PropertiesView();
+		PropertySheet pw = new PropertySheet();
 		if(pw.isOpened()){
 			pw.close();
 		}
@@ -130,8 +130,8 @@ public class HibernateRedDeerTest {
 			wizard.getWizardPage().waitUntilProjectIsLoaded(TimePeriod.LONG);
 			Shell shell = new DefaultShell("Import Maven Projects");
 			new PushButton("Finish").click();
-			new WaitWhile(new ShellIsAvailable(shell), TimePeriod.NORMAL);
-			new WaitUntil(new JobIsRunning(), TimePeriod.NORMAL, false);
+			new WaitWhile(new ShellIsAvailable(shell));
+			new WaitUntil(new JobIsRunning(), TimePeriod.MEDIUM, false);
 			new WaitWhile(new JobIsRunning(), TimePeriod.VERY_LONG);
 			
 		} catch (IOException e) {

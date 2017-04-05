@@ -16,12 +16,13 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import org.jboss.reddeer.common.exception.RedDeerException;
-import org.jboss.reddeer.eclipse.jdt.ui.ProjectExplorer;
+import org.jboss.reddeer.eclipse.ui.navigator.resources.ProjectExplorer;
 import org.jboss.reddeer.junit.requirement.inject.InjectRequirement;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.requirements.db.DatabaseConfiguration;
 import org.jboss.reddeer.requirements.db.DatabaseRequirement;
 import org.jboss.reddeer.requirements.db.DatabaseRequirement.Database;
+import org.jboss.reddeer.swt.impl.menu.ContextMenu;
 import org.jboss.reddeer.workbench.impl.editor.TextEditor;
 import org.jboss.tools.hibernate.reddeer.jpt.ui.wizard.GenerateDdlWizard;
 import org.jboss.tools.hibernate.reddeer.jpt.ui.wizard.GenerateDdlWizardPage;
@@ -97,8 +98,8 @@ public class TablesFromJPAEntitiesGeneration extends HibernateRedDeerTest {
 		ProjectExplorer pe = new ProjectExplorer();
 		pe.open();
 		pe.selectProjects(prj);
+		new ContextMenu("JPA Tools","Generate Tables from Entities...").select();
 		GenerateDdlWizard w = new GenerateDdlWizard();
-		w.open();
 		GenerateDdlWizardPage p = new GenerateDdlWizardPage();
 		p.setFileName(DDL_FILE);
 		p.setUseConsoleConfiguration(useConsole);

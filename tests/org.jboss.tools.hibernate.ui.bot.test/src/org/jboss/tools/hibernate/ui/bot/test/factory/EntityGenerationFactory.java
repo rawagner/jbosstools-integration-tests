@@ -10,7 +10,7 @@
  ******************************************************************************/
 package org.jboss.tools.hibernate.ui.bot.test.factory;
 
-import org.jboss.reddeer.eclipse.jdt.ui.ProjectExplorer;
+import org.jboss.reddeer.eclipse.ui.navigator.resources.ProjectExplorer;
 import org.jboss.reddeer.requirements.db.DatabaseConfiguration;
 import org.jboss.tools.hibernate.reddeer.jpt.ui.wizard.GenerateEntitiesWizard;
 import org.jboss.tools.hibernate.reddeer.jpt.ui.wizard.GenerateEntitiesWizardPage;

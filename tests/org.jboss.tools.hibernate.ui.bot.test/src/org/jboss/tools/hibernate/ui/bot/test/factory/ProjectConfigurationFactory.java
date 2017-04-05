@@ -18,19 +18,17 @@ import org.jboss.reddeer.common.logging.Logger;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.condition.JobIsRunning;
 import org.jboss.reddeer.core.condition.WidgetIsFound;
-import org.jboss.reddeer.core.matcher.ClassMatcher;
 import org.jboss.reddeer.core.matcher.WithMnemonicTextMatcher;
 import org.jboss.reddeer.core.matcher.WithStyleMatcher;
-import org.jboss.reddeer.eclipse.jdt.ui.ProjectExplorer;
-import org.jboss.reddeer.eclipse.ui.dialogs.ExplorerItemPropertyDialog;
+import org.jboss.reddeer.eclipse.ui.dialogs.PropertyDialog;
+import org.jboss.reddeer.eclipse.ui.navigator.resources.ProjectExplorer;
 import org.jboss.reddeer.eclipse.wst.common.project.facet.ui.FacetsPropertyPage;
 import org.jboss.reddeer.requirements.db.DatabaseConfiguration;
 import org.jboss.reddeer.swt.api.Shell;
 import org.jboss.reddeer.swt.api.TreeItem;
+import org.jboss.reddeer.swt.condition.ControlIsEnabled;
 import org.jboss.reddeer.swt.condition.ShellIsAvailable;
-import org.jboss.reddeer.swt.condition.WidgetIsEnabled;
 import org.jboss.reddeer.swt.impl.button.NextButton;
 import org.jboss.reddeer.swt.impl.button.OkButton;
 import org.jboss.reddeer.swt.impl.button.PushButton;
@@ -41,6 +39,7 @@ import org.jboss.reddeer.swt.impl.link.DefaultLink;
 import org.jboss.reddeer.swt.impl.shell.DefaultShell;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.reddeer.uiforms.impl.hyperlink.DefaultHyperlink;
+import org.jboss.reddeer.workbench.core.condition.JobIsRunning;
 import org.jboss.tools.hibernate.reddeer.editor.JpaXmlEditor;
 import org.jboss.tools.hibernate.reddeer.wizard.JpaFacetInstallPage;
 
@@ -63,7 +62,7 @@ public class ProjectConfigurationFactory {
 	public static void convertProjectToFacetsForm(String prj) {
 		ProjectExplorer pe = new ProjectExplorer();
 		pe.open();
-		ExplorerItemPropertyDialog pd = new ExplorerItemPropertyDialog(pe.getProject(prj));
+		PropertyDialog pd = pe.getProject(prj).openProperties();
 		pd.open();    	
 		pd.select("Project Facets");
 		
@@ -71,9 +70,9 @@ public class ProjectConfigurationFactory {
 		new DefaultTreeItem("Project Facets").select();
     	new DefaultLink("Convert to faceted form...").click();
     	new WaitWhile(new JobIsRunning());
-    	new WaitUntil(new WidgetIsFound<Button>(new ClassMatcher(Button.class),new WithStyleMatcher(SWT.PUSH), new WithMnemonicTextMatcher("Apply")), TimePeriod.LONG);
+    	new WaitUntil(new WidgetIsFound(Button.class,new WithStyleMatcher(SWT.PUSH), new WithMnemonicTextMatcher("Apply")), TimePeriod.LONG);
     	PushButton apply = new PushButton("Apply");
-    	new WaitUntil(new WidgetIsEnabled(apply));
+    	new WaitUntil(new ControlIsEnabled(apply));
     	apply.click();    
 		pd.ok();
 	}
@@ -96,9 +95,7 @@ public class ProjectConfigurationFactory {
 	public static void setProjectFacetForDB(String prj, DatabaseConfiguration cfg, String jpaVersion) {
 		ProjectExplorer pe = new ProjectExplorer();
 		pe.open();
-		
-		ExplorerItemPropertyDialog pd = new ExplorerItemPropertyDialog(pe.getProject(prj));
-		pd.open(); 
+		PropertyDialog pd = pe.getProject(prj).openProperties();
 		pd.select("Project Facets");
 		
 		

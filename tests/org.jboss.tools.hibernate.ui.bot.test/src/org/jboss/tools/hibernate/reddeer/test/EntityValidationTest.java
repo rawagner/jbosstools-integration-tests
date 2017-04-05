@@ -17,18 +17,18 @@ import java.util.List;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
 import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.condition.JobIsRunning;
 import org.jboss.reddeer.eclipse.condition.ProblemExists;
-import org.jboss.reddeer.eclipse.jdt.ui.packageexplorer.PackageExplorer;
+import org.jboss.reddeer.eclipse.jdt.ui.packageview.PackageExplorerPart;
+import org.jboss.reddeer.eclipse.ui.markers.matcher.MarkerDescriptionMatcher;
 import org.jboss.reddeer.eclipse.ui.problems.Problem;
-import org.jboss.reddeer.eclipse.ui.problems.ProblemsView;
-import org.jboss.reddeer.eclipse.ui.problems.ProblemsView.ProblemType;
-import org.jboss.reddeer.eclipse.ui.problems.matcher.ProblemsDescriptionMatcher;
+import org.jboss.reddeer.eclipse.ui.views.markers.ProblemsView;
+import org.jboss.reddeer.eclipse.ui.views.markers.ProblemsView.ProblemType;
 import org.jboss.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.reddeer.junit.screenshot.CaptureScreenshotException;
 import org.jboss.reddeer.junit.screenshot.ScreenshotCapturer;
 import org.jboss.reddeer.requirements.db.DatabaseRequirement.Database;
 import org.jboss.reddeer.swt.impl.menu.ShellMenu;
+import org.jboss.reddeer.workbench.core.condition.JobIsRunning;
 import org.jboss.reddeer.requirements.autobuilding.AutoBuildingRequirement.AutoBuilding;
 import org.jboss.tools.hibernate.ui.bot.test.HibernateTestException;
 import org.junit.After;
@@ -68,14 +68,14 @@ public class EntityValidationTest extends HibernateRedDeerTest {
 		List<Problem> problems = pv.getProblems(ProblemType.ERROR);
 		assertTrue(problems.isEmpty());
 		
-		PackageExplorer pe = new PackageExplorer();
+		PackageExplorerPart pe = new PackageExplorerPart();
 		pe.open();
 		pe.getProject(PROJECT_NAME).getProjectItem("src/main/java","org.hibernate.ui.test.model","Address.java").delete();
 		
 		pv.activate();
 		String expectedProblem = "org.hibernate.ui.test.model.Address is not mapped as an embeddable";
-		new WaitUntil(new ProblemExists(ProblemType.ERROR, new ProblemsDescriptionMatcher(expectedProblem)));
-		problems = pv.getProblems(ProblemType.ERROR, new ProblemsDescriptionMatcher(expectedProblem));
+		new WaitUntil(new ProblemExists(ProblemType.ERROR, new MarkerDescriptionMatcher(expectedProblem)));
+		problems = pv.getProblems(ProblemType.ERROR, new MarkerDescriptionMatcher(expectedProblem));
 		assertTrue(expectedProblem + " error is expected", problems.size() == 2);
 	}
 		
@@ -87,7 +87,7 @@ public class EntityValidationTest extends HibernateRedDeerTest {
 		pv.open();
 		List<Problem> problems = pv.getProblems(ProblemType.ERROR);
 		assertTrue(problems.isEmpty());
-		PackageExplorer pe = new PackageExplorer();
+		PackageExplorerPart pe = new PackageExplorerPart();
 		pe.open();
 		pe.getProject(PROJECT_NAME).getProjectItem("src/main/java","org.hibernate.ui.test.model","UserIdGenerator.java").delete();
 		
@@ -99,16 +99,16 @@ public class EntityValidationTest extends HibernateRedDeerTest {
 		}
 		pv.activate();
 		String expectedProblem = "Strategy class \"org.hibernate.ui.test.model.UserIdGenerator\" could not be found.";
-		new WaitUntil(new ProblemExists(ProblemType.ERROR, new ProblemsDescriptionMatcher(expectedProblem)), TimePeriod.NORMAL, false);
+		new WaitUntil(new ProblemExists(ProblemType.ERROR, new MarkerDescriptionMatcher(expectedProblem)), TimePeriod.DEFAULT, false);
 		
-		problems = pv.getProblems(ProblemType.ERROR, new ProblemsDescriptionMatcher(expectedProblem));
+		problems = pv.getProblems(ProblemType.ERROR, new MarkerDescriptionMatcher(expectedProblem));
 		if(problems.size() != 1){
 			throw new HibernateTestException();
 		}
 	}
 	
 	private void buildProject(){
-		PackageExplorer pe = new PackageExplorer();
+		PackageExplorerPart pe = new PackageExplorerPart();
 		pe.open();
 		pe.getProject(PROJECT_NAME).select();
 		new ShellMenu("Project","Build Project").select();

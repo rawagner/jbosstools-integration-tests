@@ -12,8 +12,6 @@ package org.jboss.tools.hibernate.reddeer.dialog;
 
 import org.eclipse.swt.widgets.Shell;
 import org.jboss.reddeer.swt.condition.ShellIsAvailable;
-import org.jboss.reddeer.core.condition.JobIsRunning;
-import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
 import org.jboss.reddeer.swt.impl.button.CheckBox;
 import org.jboss.reddeer.swt.impl.button.OkButton;
 import org.jboss.reddeer.swt.impl.button.PushButton;
@@ -25,6 +23,7 @@ import org.jboss.reddeer.swt.impl.table.DefaultTableItem;
 import org.jboss.reddeer.swt.impl.text.LabeledText;
 import org.jboss.reddeer.swt.impl.toolbar.DefaultToolItem;
 import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
+import org.jboss.reddeer.workbench.core.condition.JobIsRunning;
 import org.jboss.reddeer.core.lookup.ShellLookup;
 import org.jboss.reddeer.common.wait.TimePeriod;
 import org.jboss.reddeer.common.wait.WaitUntil;
@@ -48,7 +47,7 @@ public class LaunchConfigurationsDialog extends DefaultShell{
     	p.open();
     	
     	new ShellMenu("Run", "Hibernate Code Generation...","Hibernate Code Generation Configurations...").select();
-    	swtShell = new DefaultShell(DIALOG_TITLE).getSWTWidget();
+    	swtWidget = new DefaultShell(DIALOG_TITLE).getSWTWidget();
 	}
 
 	/**
@@ -110,7 +109,7 @@ public class LaunchConfigurationsDialog extends DefaultShell{
 	 */
 	public void run() {
 		new PushButton("Run").click();
-    	new WaitWhile(new ShellWithTextIsAvailable("Hibernate Code Generation Configurations"));
+    	new WaitWhile(new ShellIsAvailable("Hibernate Code Generation Configurations"));
     	new WaitUntil(new JobIsRunning());
     	new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
 	}
@@ -121,10 +120,10 @@ public class LaunchConfigurationsDialog extends DefaultShell{
 	 */
 	public void setRevengFile(String... path) {
 		new PushButton("Setup...").click();
-		new WaitUntil(new ShellWithTextIsAvailable("Setup reverse engineering"));
+		new WaitUntil(new ShellIsAvailable("Setup reverse engineering"));
 		new DefaultShell("Setup reverse engineering");
 		new PushButton("Use existing...").click();
-		new WaitUntil(new ShellWithTextIsAvailable("Select reverse engineering settings file"));
+		new WaitUntil(new ShellIsAvailable("Select reverse engineering settings file"));
 		new DefaultTreeItem(path).select();
 		new OkButton().click();
 	}

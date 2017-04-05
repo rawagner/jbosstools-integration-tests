@@ -10,19 +10,17 @@
  ******************************************************************************/
 package org.jboss.tools.aerogear.reddeer.thym.ui.wizard.export;
 
-import org.jboss.reddeer.jface.wizard.ExportWizardDialog;
+import org.jboss.reddeer.eclipse.topmenu.ExportMenuWizard;
 
 /**
  * RedDeer implementation of Export Mobile Application Wizard
  * @author Vlado Pakan
  *
  */
-public class NativeBinaryExportWizard extends ExportWizardDialog{
-  
-  private static final String[] PATH = new String[]{"Mobile", "Export Mobile Application"};
+public class NativeBinaryExportWizard extends ExportMenuWizard{
   
   public NativeBinaryExportWizard (){
-    super(NativeBinaryExportWizard.PATH);
+    super("Export Mobile Application", "Mobile", "Export Mobile Application");
   }
 
 }

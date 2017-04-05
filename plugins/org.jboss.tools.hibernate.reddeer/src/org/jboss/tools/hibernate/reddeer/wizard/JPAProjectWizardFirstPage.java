@@ -10,7 +10,7 @@
  ******************************************************************************/
 package org.jboss.tools.hibernate.reddeer.wizard;
 
-import org.jboss.reddeer.eclipse.jdt.ui.ide.NewJavaProjectWizardPage;
+import org.jboss.reddeer.eclipse.jdt.ui.wizards.NewJavaProjectWizardPageOne;
 import org.jboss.reddeer.swt.impl.combo.DefaultCombo;
 
 /**
@@ -19,7 +19,7 @@ import org.jboss.reddeer.swt.impl.combo.DefaultCombo;
  * TODO move to reddeer
  *
  */
-public class JPAProjectWizardFirstPage extends NewJavaProjectWizardPage {
+public class JPAProjectWizardFirstPage extends NewJavaProjectWizardPageOne {
 	
 	/**
 	 * Select JPA version
