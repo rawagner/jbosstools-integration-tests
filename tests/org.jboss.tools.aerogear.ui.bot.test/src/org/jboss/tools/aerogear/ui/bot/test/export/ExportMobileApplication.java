@@ -12,31 +12,35 @@ package org.jboss.tools.aerogear.ui.bot.test.export;
 
 import static org.junit.Assert.assertTrue;
 
-import org.jboss.reddeer.eclipse.jdt.ui.ProjectExplorer;
+import org.eclipse.reddeer.eclipse.ui.navigator.resources.ProjectExplorer;
 import org.jboss.tools.aerogear.reddeer.thym.ui.wizard.export.NativeBinaryDestinationPage;
 import org.jboss.tools.aerogear.reddeer.thym.ui.wizard.export.NativeBinaryExportWizard;
 import org.junit.Test;
+
 /**
- * Checks export of Hybrid Mobile project as Mobile application 
+ * Checks export of Hybrid Mobile project as Mobile application
+ * 
  * @author Vlado Pakan
  *
  */
 public class ExportMobileApplication extends ExportMobileTest {
 	@Test
 	public void testExportMobileApplication() {
-	  new ProjectExplorer().selectProjects(CORDOVA_PROJECT_NAME);
-	  NativeBinaryExportWizard exportMobileApplicationWizard = new NativeBinaryExportWizard();
-	  exportMobileApplicationWizard.open();
-	  NativeBinaryDestinationPage exportMobileApplicationPage = new NativeBinaryDestinationPage();
-	  assertTrue("Project " + CORDOVA_PROJECT_NAME + " has to be selected",
-	    exportMobileApplicationPage.isProject(CORDOVA_PROJECT_NAME));
-	  exportMobileApplicationPage.setPlatform("Android",true);
-	  final String expectedExportFileName = CORDOVA_APP_NAME + "-release-unsigned.apk";
-	  final boolean isExpectedDirectory = false;
-	  final String outputDirectory = prepareOutputDirectory(expectedExportFileName , isExpectedDirectory);
-	  exportMobileApplicationPage.setOutputDirectory(outputDirectory);
-	  exportMobileApplicationWizard.finish();
-	  assertExportedFileExists (expectedExportFileName,outputDirectory,isExpectedDirectory);
-	  cleanOutputDirectory(expectedExportFileName, outputDirectory, isExpectedDirectory);
+		ProjectExplorer pe = new ProjectExplorer();
+		pe.selectProjects(CORDOVA_PROJECT_NAME);
+		NativeBinaryExportWizard exportMobileApplicationWizard = new NativeBinaryExportWizard();
+		exportMobileApplicationWizard.open();
+		NativeBinaryDestinationPage exportMobileApplicationPage = new NativeBinaryDestinationPage(
+				exportMobileApplicationWizard);
+		assertTrue("Project " + CORDOVA_PROJECT_NAME + " has to be selected",
+				exportMobileApplicationPage.isProject(CORDOVA_PROJECT_NAME));
+		exportMobileApplicationPage.setPlatform("Android", true);
+		final String expectedExportFileName = CORDOVA_APP_NAME + "-release-unsigned.apk";
+		final boolean isExpectedDirectory = false;
+		final String outputDirectory = prepareOutputDirectory(expectedExportFileName, isExpectedDirectory);
+		exportMobileApplicationPage.setOutputDirectory(outputDirectory);
+		exportMobileApplicationWizard.finish();
+		assertExportedFileExists(expectedExportFileName, outputDirectory, isExpectedDirectory);
+		cleanOutputDirectory(expectedExportFileName, outputDirectory, isExpectedDirectory);
 	}
 }

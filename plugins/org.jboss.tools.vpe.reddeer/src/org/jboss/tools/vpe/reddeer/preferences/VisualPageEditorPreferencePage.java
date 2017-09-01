@@ -10,12 +10,13 @@
  ******************************************************************************/
 package org.jboss.tools.vpe.reddeer.preferences;
 
-import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.jface.preference.PreferencePage;
-import org.jboss.reddeer.swt.impl.button.CheckBox;
-import org.jboss.reddeer.swt.impl.button.RadioButton;
-import org.jboss.reddeer.swt.impl.combo.LabeledCombo;
-import org.jboss.reddeer.swt.impl.tab.DefaultTabItem;
+import org.eclipse.reddeer.common.logging.Logger;
+import org.eclipse.reddeer.core.reference.ReferencedComposite;
+import org.eclipse.reddeer.jface.preference.PreferencePage;
+import org.eclipse.reddeer.swt.impl.button.CheckBox;
+import org.eclipse.reddeer.swt.impl.button.RadioButton;
+import org.eclipse.reddeer.swt.impl.combo.LabeledCombo;
+import org.eclipse.reddeer.swt.impl.tab.DefaultTabItem;
 /**
  * RedDeer model of JBoss Tools > Web > Editors > Visual Page Editor preference page
  * 
@@ -25,8 +26,8 @@ public class VisualPageEditorPreferencePage extends PreferencePage  {
 	
 	protected final static Logger log = Logger.getLogger(VisualPageEditorPreferencePage.class);
 	
-	public VisualPageEditorPreferencePage() {
-		super("JBoss Tools", "Web" , "Editors" , "Visual Page Editor");
+	public VisualPageEditorPreferencePage(ReferencedComposite composite) {
+		super(composite, "JBoss Tools", "Web" , "Editors" , "Visual Page Editor");
 	}
 	/**
 	 * Sets Do Not Show Browser Engine Dialog
@@ -34,7 +35,7 @@ public class VisualPageEditorPreferencePage extends PreferencePage  {
 	 */
 	public void setDoNotShowBrowserEngineDialog (boolean checked){
 		log.debug("Set Do not show Browser Engine dialog to: " + checked);
-		new CheckBox("Do not show Browser Engine dialog").toggle(checked);
+		new CheckBox(referencedComposite, "Do not show Browser Engine dialog").toggle(checked);
 	}
 	/**
 	 * Sets default active editor tab
@@ -42,7 +43,7 @@ public class VisualPageEditorPreferencePage extends PreferencePage  {
 	 */
 	public void setDefaultActiveEditorTab (String activeTab){
 		log.debug("Set default active editor tab to: " + activeTab);
-		new LabeledCombo("Select the default active editor's tab").setSelection(activeTab);
+		new LabeledCombo(referencedComposite, "Select the default active editor's tab").setSelection(activeTab);
 	}
 	/**
 	 * Toggles Show border for unknown tags
@@ -61,7 +62,7 @@ public class VisualPageEditorPreferencePage extends PreferencePage  {
 	}
 	
 	private CheckBox getShowBorderForUnknownTags () {
-		return new CheckBox("Show border for unknown tags");
+		return new CheckBox(referencedComposite, "Show border for unknown tags");
 	}
 	/**
 	 * Toggles Show resource bundles usage as EL expressions
@@ -80,7 +81,7 @@ public class VisualPageEditorPreferencePage extends PreferencePage  {
 	}
 	
 	private CheckBox getShowResourceBundlesAsELExp () {
-		return new CheckBox("Show resource bundles usage as EL expressions");
+		return new CheckBox(referencedComposite, "Show resource bundles usage as EL expressions");
 	}
 	
 	/**
@@ -100,7 +101,7 @@ public class VisualPageEditorPreferencePage extends PreferencePage  {
 	}
 	
 	private CheckBox getShowSelectionTagBar () {
-		return new CheckBox("Show selection tag bar");
+		return new CheckBox(referencedComposite, "Show selection tag bar");
 	}
 	/**
 	 * Toggles Show non-visual tags
@@ -139,7 +140,7 @@ public class VisualPageEditorPreferencePage extends PreferencePage  {
 	}
 	
 	private CheckBox getAskForAttrsDuringTagInsert () {
-		return new CheckBox("Ask for tag attributes during tag insert");
+		return new CheckBox(referencedComposite, "Ask for tag attributes during tag insert");
 	}
 	
 	/**
@@ -159,7 +160,7 @@ public class VisualPageEditorPreferencePage extends PreferencePage  {
 	}
 	
 	private CheckBox getShowTextFormattingBar() {
-		return new CheckBox("Show text formatting bar");
+		return new CheckBox(referencedComposite, "Show text formatting bar");
 	}
 	
 	/**
@@ -168,42 +169,42 @@ public class VisualPageEditorPreferencePage extends PreferencePage  {
 	 */
 	public void setVisualSourceEditorsSplitting (String splitting){
 		log.debug("Set Visual/Source editors splitting to: " + splitting);
-		new LabeledCombo("Visual/Source editors splitting").setSelection(splitting);
+		new LabeledCombo(referencedComposite, "Visual/Source editors splitting").setSelection(splitting);
 	}
 	/**
 	 * Activates Visual Templates tab
 	 */
 	public void activateVisualTemplatesTab (){
-		new DefaultTabItem("Visual Templates").activate();
+		new DefaultTabItem(referencedComposite, "Visual Templates").activate();
 	}
 	/**
 	 * Activates General tab
 	 */
 	public void activateGeneralTab (){
-		new DefaultTabItem("Visual Templates").activate();
+		new DefaultTabItem(referencedComposite, "Visual Templates").activate();
 	}
 	
 	public void toggleSynchronizeScrolling(boolean toggle){
-		new CheckBox("Synchronize scrolling between source and visual panes").toggle(toggle);
+		new CheckBox(referencedComposite, "Synchronize scrolling between source and visual panes").toggle(toggle);
 	}
 	
 	public void toggleInformIfProjectIsNotCofiguredProperly(boolean toggle){
-		new CheckBox("Inform if the project is not configured properly to use Visual Page Editor").toggle(toggle);
+		new CheckBox(referencedComposite, "Inform if the project is not configured properly to use Visual Page Editor").toggle(toggle);
 	}
 	
 	public boolean isHTML5Engine(){
-		return new RadioButton("HTML5 (use WebKit)").isSelected();
+		return new RadioButton(referencedComposite, "HTML5 (use WebKit)").isSelected();
 	}
 	
 	public boolean isJSFEngine(){
-		return new RadioButton("JSF (use XulRunner)").isSelected();
+		return new RadioButton(referencedComposite, "JSF (use XulRunner)").isSelected();
 	}
 	
 	public void setHTML5Engine(){
-		new RadioButton("HTML5 (use WebKit)").toggle(true);
+		new RadioButton(referencedComposite, "HTML5 (use WebKit)").toggle(true);
 	}
 	
 	public void setJSFEngine(){
-		new RadioButton("JSF (use XulRunner)").toggle(true);
+		new RadioButton(referencedComposite, "JSF (use XulRunner)").toggle(true);
 	}
 }

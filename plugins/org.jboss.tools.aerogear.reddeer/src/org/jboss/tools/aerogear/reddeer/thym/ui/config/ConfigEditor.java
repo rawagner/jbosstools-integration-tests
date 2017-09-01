@@ -10,13 +10,13 @@
  ******************************************************************************/
 package org.jboss.tools.aerogear.reddeer.thym.ui.config;
 
-import org.jboss.reddeer.core.lookup.EditorPartLookup;
-import org.jboss.reddeer.core.matcher.EditorPartClassMatcher;
-import org.jboss.reddeer.core.matcher.EditorPartTitleMatcher;
-import org.jboss.reddeer.core.matcher.WithTextMatcher;
-import org.jboss.reddeer.swt.impl.ctab.DefaultCTabItem;
-import org.jboss.reddeer.workbench.exception.WorkbenchLayerException;
-import org.jboss.reddeer.workbench.impl.editor.AbstractEditor;
+import org.eclipse.reddeer.workbench.core.lookup.EditorPartLookup;
+import org.eclipse.reddeer.workbench.matcher.EditorPartClassMatcher;
+import org.eclipse.reddeer.workbench.matcher.EditorPartTitleMatcher;
+import org.eclipse.reddeer.core.matcher.WithTextMatcher;
+import org.eclipse.reddeer.swt.impl.ctab.DefaultCTabItem;
+import org.eclipse.reddeer.workbench.exception.WorkbenchLayerException;
+import org.eclipse.reddeer.workbench.impl.editor.AbstractEditor;
 /**
  * RedDeer implementation of Hybrid Mobile Config Editor
  * 
@@ -47,8 +47,8 @@ public class ConfigEditor extends AbstractEditor{
 	
 	public PropertiesPage getPlatformPropertiesPage() {
 		activate();
-		new DefaultCTabItem(ConfigEditor.PLATFORM_PROPERTIES_TAB_ITEM).activate();
-		return new PropertiesPage();
+		new DefaultCTabItem(this, ConfigEditor.PLATFORM_PROPERTIES_TAB_ITEM).activate();
+		return new PropertiesPage(this);
 	}
 	
 }

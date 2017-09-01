@@ -10,13 +10,12 @@
  ******************************************************************************/
 package org.jboss.tools.aerogear.reddeer.thym.ui.wizard.project;
 
-import org.jboss.reddeer.jface.wizard.WizardDialog;
-import org.jboss.reddeer.swt.impl.shell.DefaultShell;
+import org.eclipse.reddeer.jface.wizard.WizardDialog;
 
 public class CordovaPluginWizard extends WizardDialog{
 	
 	public CordovaPluginWizard() {
-		new DefaultShell("Cordova Plug-in Discovery");
+		super("Cordova Plug-in Discovery");
 	}
 
 }

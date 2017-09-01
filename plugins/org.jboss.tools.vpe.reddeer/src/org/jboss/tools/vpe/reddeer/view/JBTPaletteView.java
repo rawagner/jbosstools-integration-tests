@@ -10,24 +10,24 @@
  ******************************************************************************/
 package org.jboss.tools.vpe.reddeer.view;
 
-import org.jboss.reddeer.gef.view.PaletteView;
-import org.jboss.reddeer.swt.impl.toolbar.DefaultToolItem;
+import org.eclipse.reddeer.gef.view.PaletteView;
+import org.eclipse.reddeer.swt.impl.toolbar.DefaultToolItem;
 
 public class JBTPaletteView extends PaletteView {
 	
 	public void clickImportToolItem () {
 		activate();
-		new DefaultToolItem("Import").click();
+		new DefaultToolItem(this, "Import").click();
 	}
 	
 	public void clickPaletteEditorToolItem () {
 		activate();
-		new DefaultToolItem("Palette Editor").click();
+		new DefaultToolItem(this, "Palette Editor").click();
 	}
 	
 	public void clickShowHideToolItem () {
 		activate();
-		new DefaultToolItem("Show/Hide").click();
+		new DefaultToolItem(this, "Show/Hide").click();
 	}
 
 }

@@ -15,14 +15,15 @@ import org.eclipse.gef.ui.views.palette.PalettePage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.widgets.Event;
-import org.jboss.reddeer.common.wait.TimePeriod;
-import org.jboss.reddeer.common.wait.WaitUntil;
-import org.jboss.reddeer.core.handler.BrowserHandler;
-import org.jboss.reddeer.core.util.Display;
-import org.jboss.reddeer.core.util.ResultRunnable;
-import org.jboss.reddeer.swt.impl.shell.DefaultShell;
-import org.jboss.reddeer.swt.impl.toolbar.DefaultToolItem;
-import org.jboss.reddeer.workbench.ui.dialogs.FilteredPreferenceDialog;
+import org.eclipse.reddeer.common.wait.TimePeriod;
+import org.eclipse.reddeer.common.wait.WaitUntil;
+import org.eclipse.reddeer.core.handler.BrowserHandler;
+import org.eclipse.reddeer.jface.preference.PreferenceDialog;
+import org.eclipse.reddeer.common.util.Display;
+import org.eclipse.reddeer.common.util.ResultRunnable;
+import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
+import org.eclipse.reddeer.swt.impl.toolbar.DefaultToolItem;
+import org.eclipse.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
 import org.jboss.tools.vpe.preview.editor.VpvEditorPart;
 import org.jboss.tools.vpe.reddeer.VisualEditor;
 import org.jboss.tools.vpe.reddeer.condition.VPVBackIsEnabled;
@@ -148,31 +149,30 @@ public class VPVEditor extends VisualEditor{
 	}
 	
 	public boolean isBackEnabled(){
-		return new DefaultToolItem("Back").isEnabled();
+		return new DefaultToolItem(this, "Back").isEnabled();
 	}
 	
 	public void back(){
 		new WaitUntil(new VPVBackIsEnabled(this),TimePeriod.SHORT);
-		new DefaultToolItem("Back").click();
+		new DefaultToolItem(this, "Back").click();
 	}
 	
 	public boolean isForwardEnabled(){
-		return new DefaultToolItem("Forward").isEnabled();
+		return new DefaultToolItem(this, "Forward").isEnabled();
 	}
 	
 	public void forward(){
 		new WaitUntil(new VPVForwardIsEnabled(this),TimePeriod.SHORT);
-		new DefaultToolItem("Forward").click();
+		new DefaultToolItem(this, "Forward").click();
 	}
 	
-	public FilteredPreferenceDialog openPreferences(){
-		new DefaultToolItem("Preferences").click();
-		new DefaultShell(FilteredPreferenceDialog.DIALOG_TITLE);
-		return new FilteredPreferenceDialog();
+	public WorkbenchPreferenceDialog openPreferences(){
+		new DefaultToolItem(this, "Preferences").click();
+		return new WorkbenchPreferenceDialog();
 	}
 	
 	public VpvResourcesDialog openPageDesignOptions(){
-		new DefaultToolItem("Page Design Options").click();
+		new DefaultToolItem(this, "Page Design Options").click();
 		return new VpvResourcesDialog();
 	}
 

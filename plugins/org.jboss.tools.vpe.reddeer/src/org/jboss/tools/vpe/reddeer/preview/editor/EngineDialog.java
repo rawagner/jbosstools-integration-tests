@@ -10,10 +10,10 @@
  ******************************************************************************/
 package org.jboss.tools.vpe.reddeer.preview.editor;
 
-import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.swt.condition.ShellIsAvailable;
-import org.jboss.reddeer.swt.impl.button.PushButton;
-import org.jboss.reddeer.swt.impl.shell.DefaultShell;
+import org.eclipse.reddeer.common.wait.WaitWhile;
+import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
+import org.eclipse.reddeer.swt.impl.button.PushButton;
+import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
 
 public class EngineDialog extends DefaultShell{
 	
@@ -22,21 +22,21 @@ public class EngineDialog extends DefaultShell{
 	}
 	
 	public void stayWithHTML5(){
-		new PushButton("Stay with HTML5").click();
+		new PushButton(this, "Stay with HTML5").click();
 		new WaitWhile(new ShellIsAvailable(this));
 	}
 	
 	public void changeToJSF(){
-		new PushButton("Change to JSF").click();
+		new PushButton(this, "Change to JSF").click();
 		new WaitWhile(new ShellIsAvailable(this));
 	}
 	
 	public boolean isHTML5ButtonEnabled(){
-		return new PushButton("Stay with HTML5").isEnabled();
+		return new PushButton(this, "Stay with HTML5").isEnabled();
 	}
 	
 	public boolean isJSFButtonEnabled(){
-		return new PushButton("Change to JSF").isEnabled();
+		return new PushButton(this, "Change to JSF").isEnabled();
 	}
 
 }

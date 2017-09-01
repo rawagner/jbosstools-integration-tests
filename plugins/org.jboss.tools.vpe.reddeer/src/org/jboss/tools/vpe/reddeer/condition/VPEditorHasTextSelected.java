@@ -10,7 +10,7 @@
  ******************************************************************************/
 package org.jboss.tools.vpe.reddeer.condition;
 
-import org.jboss.reddeer.common.condition.WaitCondition;
+import org.eclipse.reddeer.common.condition.WaitCondition;
 import org.jboss.tools.vpe.reddeer.preview.editor.VPVEditor;
 
 public class VPEditorHasTextSelected implements WaitCondition{
@@ -45,11 +45,23 @@ public class VPEditorHasTextSelected implements WaitCondition{
 	}
 
 	@Override
-	public String errorMessage() {
+	public String errorMessageWhile() {
 		if(text != null){
 			return "'"+editor.getSelectedTextInBrowser()+"' was selected but '"+text+"' was expected";
 		}
 		return "No text was selected in VPE editor";
+	}
+
+	@Override
+	public <T> T getResult() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String errorMessageUntil() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
