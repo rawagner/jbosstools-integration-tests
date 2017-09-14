@@ -16,12 +16,12 @@ import org.jboss.ide.eclipse.as.reddeer.server.requirement.ServerRequirement;
 import org.jboss.ide.eclipse.as.reddeer.server.requirement.ServerRequirement.JBossServer;
 import org.eclipse.reddeer.common.wait.WaitUntil;
 import org.eclipse.reddeer.eclipse.ui.perspectives.JavaEEPerspective;
+import org.eclipse.reddeer.junit.annotation.RequirementRestriction;
 import org.eclipse.reddeer.junit.requirement.inject.InjectRequirement;
+import org.eclipse.reddeer.junit.requirement.matcher.RequirementMatcher;
 import org.eclipse.reddeer.requirements.openperspective.OpenPerspectiveRequirement.OpenPerspective;
 import org.eclipse.reddeer.requirements.server.ServerRequirementState;
-import org.jboss.tools.maven.reddeer.requirement.NewRepositoryRequirement.DefineMavenRepository;
 import org.jboss.tools.maven.reddeer.requirement.NewRepositoryRequirement.MavenRepository;
-import org.jboss.tools.maven.reddeer.requirement.NewRepositoryRequirement.PredefinedMavenRepository;
 import org.jboss.tools.maven.ui.bot.test.utils.ProjectHasNature;
 import org.junit.Test;
 /**
@@ -30,12 +30,16 @@ import org.junit.Test;
  */
 @OpenPerspective(JavaEEPerspective.class)
 @JBossServer(state=ServerRequirementState.PRESENT)
-@DefineMavenRepository(newRepositories = {@MavenRepository(url="http://maven.acm-sl.org/artifactory/libs-releases/",ID="acm",snapshots=true)}, 
-predefinedRepositories = { @PredefinedMavenRepository(ID="jboss-public-repository",snapshots=true) })
+@MavenRepository
 public class JSFConfiguratorTest extends AbstractConfiguratorsTest{
 
     @InjectRequirement
     private ServerRequirement sr;
+    
+    @RequirementRestriction
+    public static RequirementMatcher requirementRestriction() {
+    	return new RequirementMatcher(MavenRepository.class, "groupId", "public-and-acm");
+    }
 	
 	public static final String MAVEN_ACM_REPO = "http://maven.acm-sl.org/artifactory/libs-releases/";
 	public static final String JBOSS_REPO = "jboss-public-repository";

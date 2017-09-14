@@ -19,7 +19,9 @@ import org.eclipse.reddeer.eclipse.ui.navigator.resources.ProjectExplorer;
 import org.eclipse.reddeer.eclipse.ui.perspectives.JavaEEPerspective;
 import org.eclipse.reddeer.eclipse.ui.views.markers.ProblemsView;
 import org.eclipse.reddeer.eclipse.ui.views.markers.ProblemsView.ProblemType;
+import org.eclipse.reddeer.junit.annotation.RequirementRestriction;
 import org.eclipse.reddeer.junit.requirement.inject.InjectRequirement;
+import org.eclipse.reddeer.junit.requirement.matcher.RequirementMatcher;
 import org.eclipse.reddeer.requirements.openperspective.OpenPerspectiveRequirement.OpenPerspective;
 import org.eclipse.reddeer.requirements.server.ServerRequirementState;
 import org.eclipse.reddeer.swt.api.TreeItem;
@@ -44,21 +46,14 @@ import org.eclipse.reddeer.workbench.core.condition.JobIsRunning;
 import org.eclipse.reddeer.workbench.impl.editor.DefaultEditor;
 import org.jboss.ide.eclipse.as.reddeer.server.requirement.ServerRequirement;
 import org.jboss.ide.eclipse.as.reddeer.server.requirement.ServerRequirement.JBossServer;
-import org.jboss.tools.maven.reddeer.requirement.NewRepositoryRequirement.DefineMavenRepository;
 import org.jboss.tools.maven.reddeer.requirement.NewRepositoryRequirement.MavenRepository;
-import org.jboss.tools.maven.reddeer.requirement.NewRepositoryRequirement.PredefinedMavenRepository;
 import org.jboss.tools.maven.ui.bot.test.AbstractMavenSWTBotTest;
 import org.junit.After;
 import org.junit.Test;
 
 @OpenPerspective(JavaEEPerspective.class)
 @JBossServer(state=ServerRequirementState.PRESENT)
-@DefineMavenRepository(
-		predefinedRepositories = { 
-				@PredefinedMavenRepository(ID="jboss-public-repository",snapshots=true) },
-		newRepositories = { 
-				@MavenRepository(url="https://repository.jboss.org/maven2/", ID="jboss-maven-repository", snapshots=true)}
-)
+@MavenRepository
 public class MavenConversionTest extends AbstractMavenSWTBotTest{
 	
 	private static final Logger log = Logger.getLogger(MavenConversionTest.class);
@@ -67,6 +62,11 @@ public class MavenConversionTest extends AbstractMavenSWTBotTest{
 	
 	private List<String> expectedLibsKeep= new ArrayList<String>(
 			Arrays.asList("JRE","Maven Dependencies","Runtime"));
+	
+	@RequirementRestriction
+    public static RequirementMatcher requirementRestriction() {
+    	return new RequirementMatcher(MavenRepository.class, "groupId", "public-and-maven2");
+    }
 	 
 	@InjectRequirement
     private ServerRequirement sr;

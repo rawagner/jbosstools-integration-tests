@@ -15,6 +15,8 @@ import static org.junit.Assert.assertEquals;
 import org.eclipse.reddeer.common.wait.WaitUntil;
 import org.eclipse.reddeer.eclipse.ui.navigator.resources.ProjectExplorer;
 import org.eclipse.reddeer.eclipse.ui.perspectives.JavaEEPerspective;
+import org.eclipse.reddeer.junit.annotation.RequirementRestriction;
+import org.eclipse.reddeer.junit.requirement.matcher.RequirementMatcher;
 import org.eclipse.reddeer.requirements.openperspective.OpenPerspectiveRequirement.OpenPerspective;
 import org.eclipse.reddeer.requirements.server.ServerRequirementState;
 import org.eclipse.reddeer.swt.impl.button.PushButton;
@@ -24,8 +26,7 @@ import org.eclipse.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.eclipse.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
 import org.jboss.ide.eclipse.as.reddeer.server.requirement.ServerRequirement.JBossServer;
 import org.jboss.tools.maven.reddeer.maven.ui.preferences.ConfiguratorPreferencePage;
-import org.jboss.tools.maven.reddeer.requirement.NewRepositoryRequirement.DefineMavenRepository;
-import org.jboss.tools.maven.reddeer.requirement.NewRepositoryRequirement.PredefinedMavenRepository;
+import org.jboss.tools.maven.reddeer.requirement.NewRepositoryRequirement.MavenRepository;
 import org.jboss.tools.maven.reddeer.wizards.ConfigureMavenRepositoriesWizard;
 import org.jboss.tools.maven.ui.bot.test.project.SeamProjectTest;
 import org.jboss.tools.maven.ui.bot.test.utils.ProjectHasNature;
@@ -39,10 +40,15 @@ import org.junit.Test;
  */
 @OpenPerspective(JavaEEPerspective.class)
 @JBossServer(state=ServerRequirementState.PRESENT)
-@DefineMavenRepository(predefinedRepositories = { @PredefinedMavenRepository(ID="jboss-public-repository",snapshots=true) })
+@MavenRepository
 public class SeamConfiguratorTest extends AbstractConfiguratorsTest{
 	
 	private String projectNameNoRuntime = PROJECT_NAME_SEAM+"_noRuntime";
+	
+	@RequirementRestriction
+    public static RequirementMatcher requirementRestriction() {
+    	return new RequirementMatcher(MavenRepository.class, "groupId", "public-repo-group");
+    }
 	
 	@BeforeClass
 	public static void setupRuntimes(){
