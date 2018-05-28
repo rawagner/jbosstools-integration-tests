@@ -17,6 +17,7 @@ import static org.junit.Assert.assertTrue;
 import org.eclipse.reddeer.workbench.core.condition.JobIsRunning;
 
 import org.eclipse.reddeer.common.wait.WaitWhile;
+import org.eclipse.reddeer.eclipse.jdt.ui.packageview.PackageExplorerPart;
 import org.eclipse.reddeer.eclipse.ui.navigator.resources.ProjectExplorer;
 import org.eclipse.reddeer.eclipse.ui.views.markers.ProblemsView;
 import org.eclipse.reddeer.eclipse.ui.views.markers.ProblemsView.ProblemType;
@@ -70,7 +71,7 @@ public class CreateHTML5Page extends VPETestBase{
 	public void deleteHTML5Page(){
 		String pageName = createHTMLPageWithJS();
 		new DefaultEditor(pageName);
-		ProjectExplorer pe = new ProjectExplorer();
+		PackageExplorerPart pe = new PackageExplorerPart();
 		pe.open();
 		pe.getProject(PROJECT_NAME).getProjectItem("WebContent",pageName).delete();
 	}
